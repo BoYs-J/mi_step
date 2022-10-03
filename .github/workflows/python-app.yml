@@ -1,0 +1,46 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Python step
+# name: 刷步数
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '9 1,3,5,7,9,10,11 * * *'
+  # watch:
+  #   types: started
+  # workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build_step:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    steps:
+      - name: Checkout codes
+        uses: actions/checkout@v2
+      - name: Update system and install zsh
+        run: |
+          sudo -E apt-get -qq update
+          sudo -E apt-get install zsh -y
+          
+      - name: 初始化Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          
+      - name: 开始
+        run: |
+          pip3 install requests
+          user='${{ secrets.USER }}'
+          passwd='${{ secrets.PWD }}'
+          open_get_weather='${{ secrets.OPEN_GET_WEATHER }}'
+          area='${{ secrets.AREA }}'
+          python3 main.py ${user} ${passwd} ${open_get_weather} ${area}
