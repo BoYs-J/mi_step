@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build2:
+  build:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
 
