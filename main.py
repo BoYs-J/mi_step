@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-import requests, time, datetime, re,sys, json, random
+import requests, pytz, time, datetime, re, sys, json, random
 
 # 设置开始
 # 用户名（格式为 13800138000）
@@ -36,7 +36,8 @@ max_dict = {time_list[0]: 4999, time_list[1]: 7999, time_list[2]: 10999, time_li
 # 设置结束
 #now = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 # 北京时间
-time_bj = datetime.datetime.today() + datetime.timedelta(hours=8)
+time_bj = datetime.now(pytz.timezone('Asia/Shanghai')).replace(tzinfo=None)
+# time_bj = datetime.datetime.today() + datetime.timedelta(hours=8)
 now = time_bj.strftime("%Y-%m-%d %H:%M:%S")
 headers = {'User-Agent': 'MiFit/5.3.0 (iPhone; iOS 14.7.1; Scale/3.00)'}
 
@@ -249,9 +250,11 @@ def main(_user,_passwd,min_1, max_1):
 
 # 获取时间戳
 def get_time():
-    url = 'http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp'
-    response = requests.get(url, headers=headers).json()
-    t = response['data']['t']
+    # url = 'http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp'
+    # response = requests.get(url, headers=headers).json()
+    # t = response['data']['t']
+    timestamp_seconds = bj_time.timestamp()
+    t = int(timestamp_seconds * 1000)
     return t
 
 
