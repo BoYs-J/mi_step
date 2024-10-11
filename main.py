@@ -1,5 +1,6 @@
 # -*- coding: utf8 -*-
-import requests, pytz, time, datetime, re, sys, json, random
+from datetime import datetime
+import requests, pytz, time, re, sys, json, random
 
 # 设置开始
 # 用户名（格式为 13800138000）
