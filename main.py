@@ -254,7 +254,7 @@ def get_time():
     # url = 'http://api.m.taobao.com/rest/api3.do?api=mtop.common.getTimestamp'
     # response = requests.get(url, headers=headers).json()
     # t = response['data']['t']
-    timestamp_seconds = bj_time.timestamp()
+    timestamp_seconds = time_bj.timestamp()
     t = int(timestamp_seconds * 1000)
     return t
 
